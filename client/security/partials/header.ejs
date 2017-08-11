@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <base href="/" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="../../photohubuser/_content/images/logo.png" type="image/png" />
+    <link rel="icon" href="../../photohubuser/_content/images/logo.png" type="image/png" />
+
+    <title><%- locals.metaTitle || "PhotoHub" %></title>
+    <meta name="description" content="<%- locals.metaDescription || "PhotoHub" %>" />
+
+    <style>
+        /* fonts & icons */
+        <%- include('\.\./\.\./photohubhome/_content/fonts/montserrat.css') %>
+        <%- include('\.\./\.\./photohubhome/_content/icomoon/style.css') %>
+
+        /* bootstrap */
+        <%- include('\.\./\.\./photohubhome/_content/bootstrap.css') %>
+
+        /* syntax higlighter */
+        <%- include('\.\./\.\./photohubhome/_content/syntaxhighlighter/css/shCore.css') %>
+        <%- include('\.\./\.\./photohubhome/_content/syntaxhighlighter/css/shThemeDefault.css') %>
+
+        /* custom */
+        <%- include('\.\./\.\./photohubhome/_dist/app.css') %>
+    </style>
+
+
+</head>
+<body>
+    <!-- nav -->
+    <div class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-click="showNav = !showNav">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="/_content/images/logo.png" />
+                    <span>PhotoHub</span>
+                </a>
+            </div>
+            <div class="navbar-collapse" ng-class="{'in': showNav, 'collapse': !showNav}">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Home</a></li>
+                    <!-- <li><a href="/archive">Archive</a></li> -->
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/security/login" target="_self">Register/Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3"> 
