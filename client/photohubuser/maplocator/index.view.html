@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-12" id="mapstyle">
+        <gm-map options="{center: [12.9716, 77.5946], zoom: 9, mapTypeId: google.maps.MapTypeId.ROADMAP}">
+            <!--<gm-marker options="{position:  [37.772323, -122.214897], draggable: true}" on-dragend="coords.latitude=marker.getPosition().lat(); coords.longitude=marker.getPosition().lng()">
+                <gm-infowindow options="{content: 'Drag me!'}"></gm-infowindow>
+            </gm-marker>-->
+            <gm-marker ng-repeat="item in vm.photographers" position="item.position" on-click="openProfile(item._id)">
+                <gm-infowindow options="{content: item.firstname}" on-closeclick="console.log('closed')"></gm-infowindow>
+            </gm-marker>
+
+        </gm-map>
+    </div>
+</div>

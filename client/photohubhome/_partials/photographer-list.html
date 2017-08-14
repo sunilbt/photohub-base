@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <blockquote class="blockquote">
+            <h1>"Book the best photographer, to capture the best moments of your day."</h1>
+            <footer class="blockquote-footer">Quadcore Media House <cite title="Source Title">(KKSS)</cite></footer>
+        </blockquote>
+    </div>
+    <div class="row">
+        <% photographers.forEach(function(photographer) { %>
+            <div class="col-md-3">
+                <div class="well">
+                    <center>
+                        <img src="/static/uploads/<%= photographer.imageurl %>" name="profilephoto"  width="120" height="120" border="0" class="img-circle">            
+                        <h3><%= photographer.firstname %>  <%= photographer.lastname %></h3>
+                        <%= photographer.city %> <%= photographer.state %> <%= photographer.country %>
+                    </center>   
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    <div class="row">        
+        <div class="col-md-12">
+            <center>
+                <h1>Are you registered?<p>If not, click on the below buttons to Login or Register</p></h1>
+                <button class="btn btn-lg btn-success">Login</button>
+                <button class="btn btn-lg btn-warning">Register</button>
+                
+            </center>
+        </div>
+    </div>
+</div>
+

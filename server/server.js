@@ -33,6 +33,25 @@ transporter.sendMail(mailOptions, function(error, info){
   }
 });  */
 
+//added as part of image upload functionality development
+var path = require('path');
+var http = require('http');
+var multer  = require('multer');
+
+var storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function (req, file, cb) {
+    cb(null, file.originalname.replace(path.extname(file.originalname), "") + '-' + Date.now().toString().substring(0, 10) + path.extname(file.originalname))
+  }
+});
+
+var upload = multer({ storage: storage });
+
+app.use('/static', express.static(path.join(__dirname, 'public')))
+//remove .toString().substring(0, 10) when we migrate to amazon server to store images
+//end of content of image upload functionality development
+
+
 // enable ejs templates to have .html extension
 app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
@@ -52,21 +71,10 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// redirect to the install page if first time running
-app.use(function (req, res, next) {
-    if (!config.installed && req.path !== '/install') {
-        return res.redirect('/install');
-    }
-
-    next();
-});
-
 // api routes
 app.use('/api/contact', require('./controllers/api/contact.controller'));
-app.use('/api/pages', require('./controllers/api/pages.controller'));
-app.use('/api/posts', require('./controllers/api/posts.controller'));
-app.use('/api/redirects', require('./controllers/api/redirects.controller'));
 app.use('/api/users', require('./controllers/api/users.controller'));
+app.use('/api/photographers', require('./controllers/api/photographers.controller'));
 
 // make JWT token available to angular app
 app.get('/token', function (req, res) { 
@@ -83,6 +91,12 @@ app.use('/photohubuser', require('./controllers/photohubuser.controller'));
 
 // photohubhome front end
 app.use('/', require('./controllers/photohubhome.controller'));
+
+//added as part of the image upload development
+app.post('/savedata', upload.single('file'), function(req,res,next){
+    console.log('Upload Successful ', req.file.path);
+});
+
 
 // start server
 var port = process.env.NODE_ENV === 'production' ? 80 : 3030;

@@ -1,0 +1,109 @@
+<div class="container photographers-index">   
+    <h1>Photographers</h1>
+
+    <div class="fluid-container">
+
+    <div class="row">
+        <div class="col-md-2">
+            <h3>Apply Filters</h3>
+            
+        </div>
+        <div class="col-md-10">
+            <div class="row form-inline well">                                
+                    <div class="col-md-3">
+                        <div class="form-group custom-form-margin">
+                            <input class="form-control" ng-model="vm.query" placeholder="Search by Name"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-form-margin">
+                            <input class="form-control" ng-model="vm.query2" placeholder="Search by City"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-form-margin">
+                            <label class="control-label custom-control-label">Sort By: </label>
+                            <select class="form-control" ng-model="vm.sort">
+                                <option value="firstname">Alphabetical</option>  
+                                <option value="experience">Experience</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-form-margin">
+                            <select class="form-control" ng-model="sortItem.price" ng-options="item.name for item in vm.sortOptions.prices">
+                            </select>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <!--Side bar filter content-->
+            <div class="well">
+                <strong>Records per Page</strong>
+                <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select>
+            </div>
+            <div class="well"> 
+                <strong>Category</strong>
+                <div ng-repeat="cat in categoryArray">
+                    <input name="group" type="checkbox" ng-model="cat.on" ng-change="checkChange()"> {{cat.name}}                       
+                </div>                
+            </div>
+            
+            <div class="well">
+                <strong>Gender</strong>
+                <select class="form-control" ng-model="vm.filterByGender">
+                    <option value="">Select All</option>
+                    <option value="Male">Male</option>  
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <div class="well">
+                <strong>Language</strong>
+                <div ng-repeat="lan in languageArray">
+                    <input type="checkbox" ng-model="lan.on" ng-change="checkChangetwo()" /> {{lan.name}}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div style="margin-bottom:20px;" class="col-sm-6 col-md-4 ng-scope" ng-repeat="x in vm.photographers | filter:vm.query | filter:(!!vm.filterByGender || undefined) && vm.filterByGender:true | orderBy:'minprice':reverse | filter:vm.query2 | orderBy:vm.sort | filter: myFunc | filter: myFunc2">
+
+                    <div class="card" style="width: 30rem;">
+                        <img class="card-img-top img-circle" ng-src="/static/uploads/{{x.imageurl || 'no-image-available.jpg'}}"  alt="Card image cap" width="100" height="100">
+                        <div class="card-block" style="overflow: hidden; height:100px;">
+                            <h4 class="card-title">{{x.firstname + ' ' +x.lastname}}</h4>
+                            <p class="card-text">{{x.snippet}}</p>
+                        </div>
+                        <div class="card-block">
+                            <div class="row lead">
+                                <uib-rating ng-model="x.rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+                                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-block" style="min-height: 50px;">
+                            <span><strong>Experience:</strong><br /> {{x.experience}}</span>
+                        </div>
+                        <div class="card-block" style="min-height: 50px;">
+                            <span><strong>Price Range:</strong><br /> {{x.minprice}} to {{x.maxprice}}</span>
+                        </div>
+                        <a href="#/photographers/profile/{{x._id}}" class="btn btn-default">Profile</a>
+                        <a href="#/photographers/booking/{{x._id}}" class="btn btn-primary">Book Now</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>        
+
+    </div>
+</div>
+
+</div>

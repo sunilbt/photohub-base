@@ -1,13 +1,14 @@
-﻿var config = require('config.json');
+var config = require('config.json');
 var _ = require('lodash');
 var express = require('express');
 var jwt = require('express-jwt')({ secret: config.secret });
 var router = express.Router();
-var pageService = require('services/page.service');
+var photographerService = require('services/photographer.service');
 
 // routes
 router.get('/', getAll);
-router.get('/slug/:slug', getBySlug);
+router.get('/userid/:userid', getByUserId);
+router.get('/:year/:month/:day/:slug', getByUrl);
 router.get('/:_id', jwt, getById);
 router.post('/', jwt, create);
 router.put('/:_id', jwt, update);
@@ -16,13 +17,13 @@ router.delete('/:_id', jwt, _delete);
 module.exports = router;
 
 function getAll(req, res) {
-    pageService.getAll()
-        .then(function (pages) {
-            // if photohubuser user is logged in return all pages, otherwise return only published pages
+    photographerService.getAll()
+        .then(function (posts) {
+            // if admin user is logged in return all posts, otherwise return only published posts
             if (req.session.token) {
-                res.send(pages);
+                res.send(posts);
             } else {
-                res.send(_.filter(pages, { 'publish': true }));
+                res.send(_.filter(posts, { 'publish': true }));
             }
         })
         .catch(function (err) {
@@ -30,12 +31,22 @@ function getAll(req, res) {
         });
 }
 
-function getBySlug(req, res) {
-    pageService.getBySlug(req.params.slug)
-        .then(function (page) {
-            // return page if it's published or the photohubuser is logged in
-            if (page.publish || req.session.token) {
-                res.send(page);
+function getByUserId(req, res){
+    photographerService.getByUserId(req.params.userid)
+        .then(function (post){
+            res.send(post);
+        })
+        .catch(function(err){
+            res.status(400).send(err);
+        });
+}
+
+function getByUrl(req, res) {
+    photographerService.getByUrl(req.params.year, req.params.month, req.params.day, req.params.slug)
+        .then(function (post) {
+            // return post if it's published or the admin is logged in
+            if (post.publish || req.session.token) {
+                res.send(post);
             } else {
                 res.status(404).send('Not found');
             }
@@ -46,17 +57,18 @@ function getBySlug(req, res) {
 }
 
 function getById(req, res) {
-    pageService.getById(req.params._id)
-        .then(function (page) {
-            res.send(page);
+    photographerService.getById(req.params._id)
+        .then(function (post) {
+            res.send(post);
         })
         .catch(function (err) {
             res.status(400).send(err);
         });
 }
 
+
 function create(req, res) {
-    pageService.create(req.body)
+    photographerService.create(req.body)
         .then(function () {
             res.sendStatus(200);
         })
@@ -66,7 +78,7 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    pageService.update(req.params._id, req.body)
+    photographerService.update(req.params._id, req.body)
         .then(function () {
             res.sendStatus(200);
         })
@@ -76,7 +88,7 @@ function update(req, res) {
 }
 
 function _delete(req, res) {
-    pageService.delete(req.params._id)
+    photographerService.delete(req.params._id)
         .then(function () {
             res.sendStatus(200);
         })

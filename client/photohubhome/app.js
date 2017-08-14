@@ -23,38 +23,6 @@
                         '/?xhr=1' + (stateParams.page ? '&page=' + stateParams.page : '');
                 }
             })
-            .state('post-details', {
-                url: '/post/:year/:month/:day/:slug',
-                templateUrl: function (stateParams) {
-                    return window.initialLoad ? null :
-                        '/post/' + stateParams.year + '/' + stateParams.month + '/' + stateParams.day + '/' + stateParams.slug + '?xhr=1';
-                }
-            })
-            .state('posts-for-tag', {
-                url: '/posts/tag/:tag',
-                templateUrl: function (stateParams) {
-                    return window.initialLoad ? null :
-                        '/posts/tag/' + stateParams.tag + '?xhr=1';
-                }
-            })
-            .state('posts-for-month', {
-                url: '/posts/:year/:month',
-                templateUrl: function (stateParams) {
-                    return window.initialLoad ? null :
-                        '/posts/' + stateParams.year + '/' + stateParams.month + '?xhr=1';
-                }
-            })
-            .state('page-details', {
-                url: '/page/:slug',
-                templateUrl: function (stateParams) {
-                    return window.initialLoad ? null :
-                        '/page/' + stateParams.slug + '?xhr=1';
-                }
-            })
-            .state('archive', {
-                url: '/archive',
-                templateUrl: '/archive?xhr=1'
-            })
             .state('contact', {
                 url: '/contact',
                 templateUrl: '/contact?xhr=1',

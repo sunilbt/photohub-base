@@ -15,6 +15,7 @@
         "express": "^4.13.0",
         "express-jwt": "^3.0.1",
         "express-session": "^1.11.3",
+        "http": "0.0.0",
         "jsonwebtoken": "^5.0.2",
         "lodash": "^3.10.0",
         "moment": "^2.14.1",

@@ -2,77 +2,42 @@
     'use strict';
 
     angular
-        .module('app', ['ui.router'])
+        .module('app', ['ui.router', 'checklist-model', 'GoogleMapsNative'])
         .config(config)
         .run(run);
 
-    function config($locationProvider, $stateProvider, $urlRouterProvider) {
+    function config($locationProvider, $stateProvider, $urlRouterProvider, gmLibraryProvider) {
         // default route
-        $urlRouterProvider.otherwise("/posts");
+        $urlRouterProvider.otherwise("/photographers");
 
         $stateProvider
-            .state('posts', {
-                url: '/posts',
-                templateUrl: 'posts/index.view.html',
-                controller: 'Posts.IndexController',
+            .state('photographers', {
+                url: '/photographers',
+                templateUrl: 'photographers/index.view.html',
+                controller: 'Photographers.IndexController',
                 controllerAs: 'vm',
-                data: { activeTab: 'posts' }
+                data: { activeTab: 'photographers' }
             })
-            .state('posts/add', {
-                url: '/posts/add',
-                templateUrl: 'posts/add-edit.view.html',
-                controller: 'Posts.AddEditController',
+            .state('photographers/profile',{
+                url: '/photographers/profile/:_id',
+                templateUrl: 'photographers/profile.view.html',
+                controller: 'Photographers.ProfileController',
                 controllerAs: 'vm',
-                data: { activeTab: 'posts' }
+                data: { activeTab: 'photographers'}
             })
-            .state('posts/edit', {
-                url: '/posts/edit/:_id',
-                templateUrl: 'posts/add-edit.view.html',
-                controller: 'Posts.AddEditController',
+            .state('photographers/booking', {
+                url: '/photographers/booking/:_id',
+                templateUrl: 'photographers/booking.view.html',
+                controller: 'Photographers.BookingController',
                 controllerAs: 'vm',
-                data: { activeTab: 'posts' }
+                data: { activeTab: 'photographers' }
             })
-            .state('pages', {
-                url: '/pages',
-                templateUrl: 'pages/index.view.html',
-                controller: 'Pages.IndexController',
+            .state('maplocator',{
+                url: '/maplocator',
+                templateUrl: 'maplocator/index.view.html',
+                controller: 'Maplocator.IndexController',
                 controllerAs: 'vm',
-                data: { activeTab: 'pages' }
-            })
-            .state('pages/add', {
-                url: '/pages/add',
-                templateUrl: 'pages/add-edit.view.html',
-                controller: 'Pages.AddEditController',
-                controllerAs: 'vm',
-                data: { activeTab: 'pages' }
-            })
-            .state('pages/edit', {
-                url: '/pages/edit/:_id',
-                templateUrl: 'pages/add-edit.view.html',
-                controller: 'Pages.AddEditController',
-                controllerAs: 'vm',
-                data: { activeTab: 'pages' }
-            })
-            .state('redirects', {
-                url: '/redirects',
-                templateUrl: 'redirects/index.view.html',
-                controller: 'Redirects.IndexController',
-                controllerAs: 'vm',
-                data: { activeTab: 'redirects' }
-            })
-            .state('redirects/add', {
-                url: '/redirects/add',
-                templateUrl: 'redirects/add-edit.view.html',
-                controller: 'Redirects.AddEditController',
-                controllerAs: 'vm',
-                data: { activeTab: 'redirects' }
-            })
-            .state('redirects/edit', {
-                url: '/redirects/edit/:_id',
-                templateUrl: 'redirects/add-edit.view.html',
-                controller: 'Redirects.AddEditController',
-                controllerAs: 'vm',
-                data: { activeTab: 'redirects' }
+                data: { activeTab: 'maplocator'}
             })
             .state('account', {
                 url: '/account',
@@ -81,6 +46,11 @@
                 controllerAs: 'vm',
                 data: { activeTab: 'account' }
             });
+
+            gmLibraryProvider.configure({
+			    language: 'en',
+			    url: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDTIkmGEdVxsurnPrZpsQnmAq57Up2Hmec&' // need to keep the `&` at end of string, if my memories are right
+		    });
     }
 
     function run($http, $rootScope, $window) {

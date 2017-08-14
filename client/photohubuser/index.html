@@ -20,11 +20,10 @@
     <!-- header -->
     <header>
         <ul class="nav nav-tabs">
-            <li ng-class="{active: activeTab === 'posts'}"><a href="#/posts">Posts</a></li>
-            <li ng-class="{active: activeTab === 'pages'}"><a href="#/pages">Pages</a></li>
-            <li ng-class="{active: activeTab === 'redirects'}"><a href="#/redirects">Redirects</a></li>
+            <li ng-class="{active: activeTab === 'photographers'}"><a href="#/photographers">Photographers</a></li>
+            <li ng-class="{active: activeTab === 'maplocator'}"><a href="#/maplocator">Locate</a></li>            
             <li ng-class="{active: activeTab === 'account'}"><a href="#/account">Account</a></li>
-            <li><a href="/login" target="_self">Logout</a></li>
+            <li><a href="/security/login" target="_self">Logout</a></li>
         </ul>
         <div class="logo">
             <img src="/photohubuser/_content/images/logo.png" />
@@ -58,6 +57,9 @@
     <!-- ckeditor -->
     <script src="//cdn.ckeditor.com/4.5.7/full/ckeditor.js"></script>
     <script src="//cdn.ckeditor.com/4.5.7/full/adapters/jquery.js"></script>
+
+    <!-- additional -->  
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTIkmGEdVxsurnPrZpsQnmAq57Up2Hmec&callback=angular.noop"></script>  
 
     <!-- meanie -->
     <script src="_dist/app.min.js"></script>

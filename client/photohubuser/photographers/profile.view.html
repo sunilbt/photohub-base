@@ -1,0 +1,115 @@
+<div class="posts-add-edit">
+    <div class="container account-index">
+    <div class="row">
+        <h1>Photographer Profile</h1>
+
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div class="span3 well">                        
+                        <center>
+                            <img ng-src="/static/uploads/{{vm.profile.imageurl || 'no-image-available.jpg'}}" name="profilephoto"
+                                width="140" height="140" border="0" class="img-circle">                                
+                            <h3 class="media-heading">{{vm.profile.firstname}} {{vm.profile.lastname}}<small> {{vm.profile.city || 'City'}}, {{vm.profile.state || 'State'}}, {{vm.profile.country || 'Country'}}</small></h3>
+                            <span><strong>Categories: </strong></span>
+                            <span class="label label-warning" ng-repeat="cat in vm.profile.categories">{{cat}} </span><br /><br />
+
+                            <div class="row">
+                                <uib-rating ng-model="x.rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+                                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                            </div>
+                            <div class="row">
+                                <span><button class="btn btn-sm btn-primary" ng-click="vm.rateNow()">Rate Now</button></span>                        
+                            </div>                            
+                        </center>
+                            <hr>
+                            <left>
+                                <p><strong>Photographer Location: </strong></p>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <label for="address1">Street Address 1</label>
+                                        <label>{{vm.profile.address1}}</label><br />
+
+                                        <label for="address1">Street Address 2</label>
+                                        <label>{{vm.profile.address2}}</label><br />
+
+                                        <label for="address1">City</label>
+                                        <label>{{vm.profile.city}}</label><br />
+
+                                        <label for="address1">State</label>
+                                        <label>{{vm.profile.state}}</label><br />
+
+                                        <label for="address1">Country</label>
+                                        <label>{{vm.profile.country}}</label><br />
+
+                                        <label for="address1">ZipCode</label>
+                                        <label>{{vm.profile.zipcode}}</label><br />
+                                    </div>
+                                
+                                    <div class="col-md-5 col-md-offset-2">
+                                        <label for="address1">Phone Number</label>
+                                        <label>{{vm.profile.phone1}}</label><br />
+
+                                        <label for="address1">Alt. Phone Number</label>
+                                        <label>{{vm.profile.phone2}}</label><br />
+
+                                        <label for="gender">Gender</label>
+                                        <label>{{vm.profile.gender}}</label><br />
+
+                                        <label for="gender">Experience in Photography</label>
+                                        <label>{{vm.profile.experience}}</label>                                         
+                                    </div>
+                                </div>
+
+                            </left>
+                            <hr>
+                            <left>
+                                <p><strong>Snippet:</strong></p>
+                                <label>{{vm.profile.snippet}}</label><br />
+                                <br>
+                            </left>
+                            <hr>
+                            <left>
+                                <p><strong>Photographer Categories: </strong></p>
+                                <div class="container row">
+                                    <span ng-repeat="cat in vm.profile.categories">
+                                        <div class="col-md-2 col-xs-6">                                                                                    
+                                            {{cat}}                                        
+                                        </div>
+                                    </span>
+                                </div>
+                            </left>
+                            <hr>                            
+                            <left>
+                                <p><strong>I can communicate in: </strong></p>
+                                 <div class="container row">
+                                    <span ng-repeat="lan in vm.profile.languages">
+                                        <div class="col-md-2 col-xs-6">                                      
+                                                {{lan}}                                        
+                                        </div>
+                                    </span>
+                                </div>
+                            </left>
+                            <hr>
+                            <left>
+                                <p><strong>My pricing based upon your needs:</strong> min and max price in INR(Indian Rupees)</p>                                
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label for="address1">Minimum Price</label>
+                                            <label>{{vm.profile.minprice}}</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <label for="address1">Maximum Price</label>
+                                            <label>{{vm.profile.maxprice}}</label>
+                                        </div>
+                                    </div>                              
+                            </left><hr />                          
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
