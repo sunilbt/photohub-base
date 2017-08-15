@@ -64,7 +64,12 @@
                     vm.data = {
                         firstname: vm.user.firstName,
                         lastname: vm.user.lastName,
-                        userid: vm.user._id
+                        userid: vm.user._id,
+                        starrating: [{
+                            stars: 5,
+                            userid: 'photohub'
+                        }],
+                        averagerating: 5                           
                     };
                     angular.extend(vm.profile, vm.data);
                 } else{
@@ -72,7 +77,12 @@
                     vm.profile = { 
                         firstname: vm.user.firstName,
                         lastname: vm.user.lastName,
-                        userid: vm.user._id
+                        userid: vm.user._id,
+                        starrating: [{
+                            stars: 5,
+                            userid: 'photohub'
+                        }],
+                        averagerating: 5    
                     };
                 }
                 
@@ -123,7 +133,12 @@
                     firstname: vm.user.firstName,
                     lastname: vm.user.lastName,
                     userid: vm.user._id,
-                    imageurl: $scope.myFile.name.slice(0,-4) + '-' + Date.now().toString().substring(0, 10) +'.jpg',                    
+                    imageurl: $scope.myFile.name.slice(0,-4) + '-' + Date.now().toString().substring(0, 10) +'.jpg', 
+                    starrating: [{
+                        stars: 5,
+                        userid: 'photohub'
+                    }],
+                    averagerating: 5                     
                 };
                 
                 PhotographerService.Save(vm.profile)

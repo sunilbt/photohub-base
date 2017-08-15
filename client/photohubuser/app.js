@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ui.router', 'checklist-model', 'GoogleMapsNative'])
+        .module('app', ['ui.router', 'ui.bootstrap', 'checklist-model', 'GoogleMapsNative', 'ngMaterial', 'jkAngularRatingStars'])
         .config(config)
         .run(run);
 

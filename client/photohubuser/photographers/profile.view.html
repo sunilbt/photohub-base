@@ -14,12 +14,18 @@
                             <span><strong>Categories: </strong></span>
                             <span class="label label-warning" ng-repeat="cat in vm.profile.categories">{{cat}} </span><br /><br />
 
-                            <div class="row">
-                                <uib-rating ng-model="x.rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
-                                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                            <div class="row" ng-show="vm.btnshow">
+                                <!--on-rating="onItemRating(rating)" include on jk-rating-stars -->
+                                <jk-rating-stars max-rating="5" rating="vm.average" on-rating="onItemRating(rating)"></jk-rating-stars>
+                                <div style="width: 100px">{{vm.average}} Stars ( {{vm.profile.starrating.length}} )</div><br />
+
+                                <span><button class="btn btn-sm btn-primary"  ng-click="vm.rateNow()">Rate Now</button></span>
+                                
                             </div>
-                            <div class="row">
-                                <span><button class="btn btn-sm btn-primary" ng-click="vm.rateNow()">Rate Now</button></span>                        
+                            <div class="row" ng-show="!vm.btnshow">
+                                <jk-rating-stars rating="vm.profile.averagerating" read-only="readOnly" ></jk-rating-stars>
+                                <div style="width: 100px">{{vm.profile.averagerating}} Stars ( {{vm.profile.starrating.length}} )</div><br /> 
+                                <p>You rated!</p>                                                                 
                             </div>                            
                         </center>
                             <hr>
